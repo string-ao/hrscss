@@ -62,3 +62,40 @@
 //   // finish progress bar
 //   NProgress.done()
 // })
+
+
+//权限拦截 、导航守卫、路由守卫、router
+import router from "@/router";
+import store from '@/store'
+import nProgress from "nprogress"; //引入进度条插件
+import 'nprogress/nprogress.css' //引入进度条样式
+
+const whiteList = ['/login', '/404'] //define whitelist
+
+//路由前置守卫
+router.beforeEach(function(to, from, next) {
+    NProgress.start() //start progress
+        //judge if exist token
+    if (store.getters.token) {
+        if (to.path === '/login') {
+            next('/')
+        } else {
+            next()
+        }
+    } else {
+        if (whiteList.indexOf(to.path) > -1) {
+            next()
+        } else {
+            next('/login')
+        }
+    }
+
+    NProgress.done() //to resolve manual toggle adress, nprogress don't close ;force close once
+
+
+})
+
+//后置守卫
+router.afterEach(function() {
+    NProgress.done() //关闭进度条
+})
