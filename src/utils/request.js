@@ -86,11 +86,34 @@
 
 
 import axiox from 'axios'
+import { Message } from 'element-ui'
 //1.创建一个axios实例对象
-const service = axios.create({})
+const service = axios.create({
+        baseURL: process.env.VUE_APP_BASE_API,
+        timeout: 5000
+    })
     //2.请求拦截器
 service.interceptors.request.use()
     //3.响应拦截器
-service.interceptors.response.use()
+service.interceptors.response.use(response => {
+            //axios默认添加一层data
+            const { success, message, data } = response.data
+                //根据success的成功与否决定下面的操作
+            if (success) {
+                return data
+            } else {
+                //业务已经犯错了，还能进then?不能！应该是进入catch
+                Message.error(message) //hint error message
+
+            }
+
+        }, error => {
+            Message.error(error.message) //hint error message
+            return Promise.reject(error) //return run error ,
+
+
+        },
+
+    )
     // 导出axios实例
 export default service

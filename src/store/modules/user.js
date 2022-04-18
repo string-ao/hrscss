@@ -21,7 +21,7 @@ const actions = {
     async login(context, data) {
         const result = await login(data)
         if (result.data.success) {
-            context.commit('setToken', result.data.data)
+            context.commit('setToken', result)
         }
     }
 
@@ -52,11 +52,7 @@ const actions = {
     */
 
 }
-const getters = {
-    sidebar: state = state.app.sidebar,
-    device: state = state.app.device,
-    token: state = state.user.token,
-}
+
 
 
 export default {
@@ -64,5 +60,4 @@ export default {
     state: {},
     mutations: {},
     actions: {},
-    getters: {}
 }
