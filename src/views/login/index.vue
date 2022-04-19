@@ -152,16 +152,17 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(async (isOK) => {
         if (isOK) {
+          // 表示校验通过
+          this.loading = true;
           try {
-            this.loading = true;
-            //only 校验通过了，我们才能调用action
             await this["user/login"](this.loginForm);
-            //应该登录成功之后
-            //async 标记的函数实际上是一个promise对象
+            // await this.$store.dispatch("user/login", this.loginForm);
+            // 只要进行到这个位置 说明登录成功了 跳到主页
             this.$router.push("/");
           } catch (error) {
-            console.log(error);
+            //
           } finally {
+            // finally是和trycatch配套的 不论你执行不执行catch都会执行finally
             this.loading = false;
           }
         }

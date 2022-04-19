@@ -67,7 +67,7 @@
 //权限拦截 、导航守卫、路由守卫、router
 import router from "@/router";
 import store from '@/store'
-import nProgress from "nprogress"; //引入进度条插件
+import NProgress from "nprogress"; //引入进度条插件
 import 'nprogress/nprogress.css' //引入进度条样式
 
 const whiteList = ['/login', '/404'] //define whitelist
@@ -90,7 +90,7 @@ router.beforeEach(function(to, from, next) {
         }
     }
 
-    NProgress.done() //to resolve manual toggle adress, nprogress don't close ;force close once
+    NProgress.done() //to resolve manual toggle address, nprogress don't close ;force close once
 
 
 })

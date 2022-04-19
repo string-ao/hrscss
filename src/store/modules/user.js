@@ -1,5 +1,5 @@
 import { getToken, setToken, removeToken } from "@/utils/auth"
-import getters from "../getters"
+import getters from "@/store/getters"
 const state = {
     token: getToken() // get toekn init status 
 }
